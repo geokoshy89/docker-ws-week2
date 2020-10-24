@@ -1,27 +1,27 @@
 version: '3.3' # docker-compose config version
 volumes:
     mysql-data: {}
-services: # let's define services
+services:
     studentng:
         image: geokoshy89/student-ng:1.0.0
         depends_on:
              - studentapi
-        ports: # publish ports
+        ports:
             - "80:4200"
-        restart: on-failure # restart in case of failure
-    studentapi: # First service is wordpress
-        image: geokoshy89/student-api:1.0.0 # image to use
-        depends_on: # wait for DB to start
+        restart: on-failure 
+    studentapi: 
+        image: geokoshy89/student-api:1.0.0 
+        depends_on: 
             - database
-        ports: # publish ports
+        ports:
             - "8080:8080"
-        restart: on-failure # restart in case of failure
-    database: # wordpress needs a database
-        image: geokoshy89/student-mysql # Let's stick to MySQL v5.7
-        volumes: # Again volume to store data
-            - mysql-data:/var/lib/mysql # Notice, it's a named volume, not a bind mount.
-        restart: on-failure # Restart `always` will works as well but it's hard to stop the database then :) 
-        environment: # Env vars do some configuration
+        restart: on-failure 
+    database:
+        image: geokoshy89/student-mysql 
+        volumes: 
+            - mysql-data:/var/lib/mysql 
+        restart: on-failure  
+        environment:
             MYSQL_ROOT_PASSWORD: pass
             MYSQL_DATABASE: student
 
