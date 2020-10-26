@@ -21,7 +21,6 @@ services:
         volumes: 
             - mysql-data:/var/lib/mysql 
         restart: on-failure  
-        environment:
-            MYSQL_ROOT_PASSWORD: pass
-            MYSQL_DATABASE: student
+        env_file:
+            ./dev.env
 
